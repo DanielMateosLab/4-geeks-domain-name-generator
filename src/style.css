@@ -29,3 +29,10 @@
   top: 1px;
   left: 1px;
 }
+
+/* Success alert */
+.alert-placeholder {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+}
