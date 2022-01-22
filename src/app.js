@@ -2,11 +2,6 @@
 import "bootstrap";
 import "./style.css";
 
-/**
- * TODO:
- * - display domains with random text-color for each word.
- */
-
 let pronombres = ["un", "vuestro", "su"];
 let adjetivos = ["increible", "absurdo", "descabellado"];
 let nombres = ["pastel", "delito", "plan"];
@@ -17,15 +12,18 @@ window.onload = function() {
     for (const adjetivo of adjetivos) {
       for (const nombre of nombres) {
         for (const dominio of dominios) {
-          const pronombreElement = wrapInColoredSpan(pronombre, "success");
-          const adjetivoElement = wrapInColoredSpan(adjetivo, "dark");
-          const nombreElement = wrapInColoredSpan(nombre, "danger");
-          const dominioElement = wrapInColoredSpan(dominio, "info");
+          let domainComponents = [pronombre, adjetivo, nombre, dominio];
+          // With DomainColors class we get 4 randomly-ordered colors,
+          // to get each of them we use the method getOne()
+          const colors = new DomainColors();
+
+          domainComponents.map(component =>
+            wrapInColoredSpan(component, colors.getOne())
+          );
 
           const domainButton = document.createElement("button");
           domainButton.className = "domain";
-          domainButton.innerHTML =
-            pronombreElement + adjetivoElement + nombreElement + dominioElement;
+          domainButton.innerHTML = domainComponents.join("");
 
           domainButton.addEventListener("click", function() {
             const domainText = domainButton.innerText;
@@ -40,6 +38,33 @@ window.onload = function() {
     }
   }
 };
+
+class DomainColors {
+  constructor() {
+    this._shuffle();
+  }
+
+  _shuffle() {
+    let colors = ["success", "dark", "danger", "info"];
+    let newColors = [];
+
+    while (colors.length > 0) {
+      const randomIndex = this._getRandomNumber(colors.length);
+      newColors.push(colors.splice(randomIndex, 1)[0]);
+    }
+
+    this.colors = newColors;
+  }
+
+  /** Return a random number between 0 and limit (limit not included) */
+  _getRandomNumber(limit) {
+    return Math.floor(Math.random() * limit);
+  }
+
+  getOne() {
+    return this.colors.pop();
+  }
+}
 
 /** @argument color - one of the bootstrap variants (sucess, secondary...) */
 function wrapInColoredSpan(text, color) {
