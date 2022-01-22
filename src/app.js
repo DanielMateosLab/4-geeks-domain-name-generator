@@ -2,14 +2,10 @@
 import "bootstrap";
 import "./style.css";
 
-import "./assets/img/rigo-baby.jpg";
-import "./assets/img/4geeks.ico";
-
 /**
  * TODO:
- * - display domains as little cards with random text-color for each word.
+ * - display domains with random text-color for each word.
  * - Copy domain to clipboard on-click
- * - Use css transition to increase size of hovered domain
  */
 
 let pronombres = ["un", "vuestro", "su"];
@@ -29,7 +25,7 @@ window.onload = function() {
 
           document.querySelector(
             "#domains"
-          ).innerHTML += `<div>${pronombreHTML +
+          ).innerHTML += `<div class="domain">${pronombreHTML +
             adjetivoHTML +
             nombreHTML +
             dominioHTML}</div>`;
