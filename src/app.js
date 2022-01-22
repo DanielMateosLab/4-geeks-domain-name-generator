@@ -23,12 +23,12 @@ window.onload = function() {
           const nombreHTML = wrapInColoredSpan(nombre, "danger");
           const dominioHTML = wrapInColoredSpan(dominio, "info");
 
-          document.querySelector(
-            "#domains"
-          ).innerHTML += `<div class="domain">${pronombreHTML +
-            adjetivoHTML +
-            nombreHTML +
-            dominioHTML}</div>`;
+          const domainButton = document.createElement("button");
+          domainButton.className = "domain";
+          domainButton.innerHTML =
+            pronombreHTML + adjetivoHTML + nombreHTML + dominioHTML;
+
+          document.querySelector("#domains").append(domainButton);
         }
       }
     }
