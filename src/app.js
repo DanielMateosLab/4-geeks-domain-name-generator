@@ -17,7 +17,7 @@ window.onload = function() {
           // to get each of them we use the method getOne()
           const colors = new DomainColors();
 
-          domainComponents.map(component =>
+          domainComponents = domainComponents.map(component =>
             wrapInColoredSpan(component, colors.getOne())
           );
 
