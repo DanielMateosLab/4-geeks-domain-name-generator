@@ -5,20 +5,20 @@ import "./style.css";
 let pronombres = ["un", "vuestro", "su"];
 let adjetivos = ["increible", "absurdo", "descabellado"];
 let nombres = ["pastel", "delito", "plan"];
-let dominios = [".com", ".es", ".io"];
+let dominiosComerciales = [".com", ".es", ".io"];
+
+let colors = ["success", "dark", "danger", "info"];
 
 window.onload = function() {
   for (const pronombre of pronombres) {
     for (const adjetivo of adjetivos) {
       for (const nombre of nombres) {
-        for (const dominio of dominios) {
-          let domainComponents = [pronombre, adjetivo, nombre, dominio];
-          // With DomainColors class we get 4 randomly-ordered colors,
-          // to get each of them we use the method getOne()
-          const colors = new DomainColors();
+        for (const domComercial of dominiosComerciales) {
+          let domainComponents = [pronombre, adjetivo, nombre, domComercial];
+          const shuffledColors = shuffleArray(colors);
 
           domainComponents = domainComponents.map(component =>
-            wrapInColoredSpan(component, colors.getOne())
+            wrapInColoredSpan(component, shuffledColors.pop())
           );
 
           const domainButton = document.createElement("button");
@@ -38,33 +38,6 @@ window.onload = function() {
     }
   }
 };
-
-class DomainColors {
-  constructor() {
-    this._shuffle();
-  }
-
-  _shuffle() {
-    let colors = ["success", "dark", "danger", "info"];
-    let newColors = [];
-
-    while (colors.length > 0) {
-      const randomIndex = this._getRandomNumber(colors.length);
-      newColors.push(colors.splice(randomIndex, 1)[0]);
-    }
-
-    this.colors = newColors;
-  }
-
-  /** Return a random number between 0 and limit (limit not included) */
-  _getRandomNumber(limit) {
-    return Math.floor(Math.random() * limit);
-  }
-
-  getOne() {
-    return this.colors.pop();
-  }
-}
 
 /** @argument color - one of the bootstrap variants (sucess, secondary...) */
 function wrapInColoredSpan(text, color) {
@@ -86,4 +59,21 @@ function alert(domainName) {
     `;
 
   document.querySelector(".alert-placeholder").innerHTML = wrapper.innerHTML;
+}
+
+/** Returns a new array with array elements in a random order */
+function shuffleArray(array) {
+  let arrayCopy = [...array];
+  let shuffledArray = [];
+
+  while (arrayCopy.length > 0) {
+    const randomIndex = getRandomNumber(arrayCopy.length);
+    shuffledArray.push(arrayCopy.splice(randomIndex, 1)[0]);
+  }
+
+  return shuffledArray;
+}
+
+function getRandomNumber(limit) {
+  return Math.floor(Math.random() * limit);
 }
