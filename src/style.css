@@ -4,24 +4,31 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 1rem;
+  align-items: center;
+  row-gap: 0.5rem;
+  column-gap: 0.25rem;
 }
 
 /* Custom css domain-button */
 .domain {
   background: rgba(0, 0, 0, 0.05);
   padding: 0.25rem 0.5rem;
+  /* 
+    The margin changes during transition avoid (most of the time) domains jumping to the next row
+    because of a width increase 
+  */
+  margin: 0 0.2rem;
   border-radius: 8px;
-  cursor: pointer;
   border: none;
+  height: min-content;
 
-  transition-property: padding font-size background;
   transition-duration: 0.1s;
 }
 .domain:hover {
   background: rgba(0, 0, 0, 0.12);
   font-size: 1.1em;
   padding: 0.3rem 0.55rem;
+  margin: 0;
 }
 .domain:active {
   background: rgba(0, 0, 0, 0.2);
